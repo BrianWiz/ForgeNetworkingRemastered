@@ -4,7 +4,7 @@ We live in a world where we just can't trust our clients to send us messages tha
 
 When we use the Network Contract Wizard (NCW), it will create 2 generated classes; one for our MonoBehaviour and one for our NetworkObject.
 
-The one that we want to focus on in this example is the generated NetworkObject. So let's say that we opened up the Network Contract Wizard (NCW) and we created a contract named **Ball** ; this will generate a NetworkObject class named **BallNetworkObject**. Now in another folder (not in the Generated folder) you will create a new C# script called **BallNetworkObject**. In here you will create your [partial class](https://msdn.microsoft.com/en-us/library/wa80x488.aspx) for the **BallNetworkObj ect** and you will override the **ServerAllowRpc** method like so:
+The one that we want to focus on in this example is the generated NetworkObject. So let's say that we opened up the Network Contract Wizard (NCW) and we created a contract named **Ball** ; this will generate a NetworkObject class named **BallNetworkObject**. Now in another folder (not in the Generated folder) you will create a new C# script called **BallNetworkObject**. In here you will create your [partial class](https://msdn.microsoft.com/en-us/library/wa80x488.aspx) for the **BallNetworkObject** and you will override the **ServerAllowRpc** method like so:
 
 ### ServerAllowRpc
 
@@ -18,3 +18,6 @@ protected override bool ServerAllowRpc(string methodName, Receivers receivers, R
 ```
 
 Notice that you need to return a boolean from this function. If you return **true** then the RPC will be allowed to go through, it will be invoked on the server and on the clients (if specified in Receivers). If you return **false** then the RPC will not be invoked at all and will be dropped.
+
+### Notes
+If you specify receivers as `Receivers.Server` or `Receivers.Target` in the RPC, then the server will not call the `ServerAllowRpc` method.
